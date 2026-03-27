@@ -1,0 +1,25 @@
+{
+  "type": "module",
+  "name": "my-astro-app",
+  "version": "0.0.1",
+  "scripts": {
+    "astro": "astro",
+    "build": "astro check && astro build",
+    "deploy": "alchemy deploy",
+    "destroy": "alchemy destroy",
+    "dev": "alchemy dev",
+    "preview": "astro preview",
+    "postinstall": "vibe-rules install cursor"
+  },
+  "dependencies": {
+    "astro": "^5.10.0"
+  },
+  "devDependencies": {
+    "@astrojs/cloudflare": "^12.6.0",
+    "@cloudflare/workers-types": "^4.20250805.0",
+    "alchemy": "0.90.1",
+    "miniflare": "^4.20250617.3",
+    "typescript": "^5.8.3",
+    "vibe-rules": "^0.3.91"
+  }
+}
