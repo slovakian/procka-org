@@ -4,15 +4,19 @@ import { GitHubComment } from "alchemy/github";
 import { CloudflareStateStore } from "alchemy/state";
 
 const stage = process.env.STAGE ?? "dev";
-const isProduction = stage === "prod";
 
 const app = await alchemy("my-astro-app", {
 	stage,
 	stateStore:
-		process.env.NODE_ENV === "production"
-			? (scope) => new CloudflareStateStore(scope)
+		process.env.NODE_ENV === "production" || process.env.CI
+			? (scope) =>
+					new CloudflareStateStore(scope, {
+						stateToken: alchemy.secret(process.env.ALCHEMY_STATE_TOKEN),
+					})
 			: undefined, // Uses default FileSystemStateStore
 });
+
+const isProduction = stage === "prod";
 
 export const worker = await Astro("website", {
 	domains: isProduction ? ["procka.org"] : undefined,
