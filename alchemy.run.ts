@@ -5,7 +5,7 @@ import { CloudflareStateStore } from "alchemy/state";
 
 const stage = process.env.STAGE ?? "dev";
 
-const app = await alchemy("my-astro-app", {
+const app = await alchemy("procka-org", {
 	stage,
 	stateStore:
 		process.env.NODE_ENV === "production" || process.env.CI
