@@ -1,27 +1,35 @@
 import alchemy from "alchemy";
+import { Astro } from "alchemy/cloudflare";
 import { GitHubComment } from "alchemy/github";
 import { CloudflareStateStore } from "alchemy/state";
-import { Astro } from "alchemy/cloudflare";
+
+const stage = process.env.STAGE ?? "dev";
+const isProduction = stage === "prod";
 
 const app = await alchemy("my-astro-app", {
-  stateStore: (scope) => new CloudflareStateStore(scope),
+	stage,
+	stateStore:
+		process.env.NODE_ENV === "production"
+			? (scope) => new CloudflareStateStore(scope)
+			: undefined, // Uses default FileSystemStateStore
 });
 
-export const worker = await Astro("website");
+export const worker = await Astro("website", {
+	domains: isProduction ? ["procka.org"] : undefined,
+});
 
 console.log({
-  url: worker.url,
+	url: worker.url,
 });
 
-
 if (process.env.PULL_REQUEST) {
-  const previewUrl = worker.url;
+	const previewUrl = worker.url;
 
-  await GitHubComment("pr-preview-comment", {
-    owner: process.env.GITHUB_REPOSITORY_OWNER || "your-username",
-    repository: process.env.GITHUB_REPOSITORY_NAME || "my-astro-app",
-    issueNumber: Number(process.env.PULL_REQUEST),
-    body: `
+	await GitHubComment("pr-preview-comment", {
+		owner: process.env.GITHUB_REPOSITORY_OWNER || "slovakian",
+		repository: process.env.GITHUB_REPOSITORY_NAME || "procka-org",
+		issueNumber: Number(process.env.PULL_REQUEST),
+		body: `
 ## 🚀 Preview Deployed
 
 Your preview is ready!
@@ -32,7 +40,7 @@ This preview was built from commit ${process.env.GITHUB_SHA}
 
 ---
 <sub>🤖 This comment will be updated automatically when you push new commits to this PR.</sub>`,
-  });
+	});
 }
 
 await app.finalize();

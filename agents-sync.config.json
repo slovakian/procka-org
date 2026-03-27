@@ -1,0 +1,6 @@
+{
+	"claudeAppend": "## Claude Code\n\n",
+	"skillTargets": [".claude/skills"],
+	"contextIgnore": ["node_modules", ".git", "dist", ".astro", "coverage"],
+	"skillSyncClean": false
+}
