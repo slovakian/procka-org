@@ -4,14 +4,38 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 
 <BaseLayout
 	title="Jason Procka"
-	description="A journal."
+	description="Hobbyist web developer from North Dakota."
 >
 	<header class="flex flex-col gap-6">
 		<h1 class="text-xl font-medium tracking-tight text-foreground md:text-2xl">
 			Jason Procka
 		</h1>
 		<p class="text-muted-foreground leading-relaxed">
-			A notebook in public. Setting up Keystatic.
+			I'm a hobbyist web developer from North Dakota.
 		</p>
 	</header>
+
+	<section class="flex flex-col gap-4" aria-labelledby="projects-heading">
+		<h2
+			id="projects-heading"
+			class="text-sm font-medium tracking-tight text-foreground"
+		>
+			Projects
+		</h2>
+		<ul class="flex flex-col gap-6">
+			<li class="flex flex-col gap-2">
+				<span class="font-medium text-foreground">Notai</span>
+				<p class="text-muted-foreground leading-relaxed">
+					A contemplative teachings web app.
+				</p>
+			</li>
+			<li class="flex flex-col gap-2">
+				<span class="font-medium text-foreground">Retro live chat</span>
+				<p class="text-muted-foreground leading-relaxed">
+					Currently unnamed. Transient rooms that obey the laws of
+					thermodynamics.
+				</p>
+			</li>
+		</ul>
+	</section>
 </BaseLayout>
