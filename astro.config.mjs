@@ -1,5 +1,5 @@
+import markdoc from "@astrojs/markdoc";
 import react from "@astrojs/react";
-import keystatic from "@keystatic/astro";
 import tailwindcss from "@tailwindcss/vite";
 import alchemy from "alchemy/cloudflare/astro";
 import { defineConfig } from "astro/config";
@@ -18,5 +18,5 @@ export default defineConfig({
 	vite: {
 		plugins: [tailwindcss()],
 	},
-	integrations: [react(), keystatic()],
+	integrations: [react(), markdoc()],
 });
