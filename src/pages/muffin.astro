@@ -1,0 +1,14 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+Astro.response.status = 418;
+---
+
+<BaseLayout title="418 · Teapot" showNav={false}>
+	<div class="flex flex-col items-center gap-4 text-center">
+		<p class="font-medium text-foreground">Error 418</p>
+		<p class="text-muted-foreground leading-relaxed">
+			Sorry, Muffin. I'm a teapot 😘
+		</p>
+	</div>
+</BaseLayout>
