@@ -20,6 +20,9 @@ const isProduction = stage === "prod";
 
 export const worker = await Astro("website", {
 	domains: isProduction ? ["procka.org"] : undefined,
+	// Hybrid static + server: prerendered HTML is served from assets; Worker still handles
+	// on-demand routes (Keystatic, APIs). Alchemy only defaults this path when output is "server".
+	entrypoint: "dist/_worker.js/index.js",
 });
 
 console.log({
