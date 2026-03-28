@@ -1,0 +1,44 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const journal = await getCollection('journal');
+---
+
+<BaseLayout
+	title="Journal"
+	description="A collection of journal entries"
+>
+	<header class="flex flex-col gap-4">
+		<h1 class="text-xl font-medium tracking-tight text-foreground md:text-2xl">
+			Journal
+		</h1>
+		<p class="text-muted-foreground">
+			Thoughts and reflections, written in public.
+		</p>
+	</header>
+
+	{journal.length === 0 ? (
+		<p class="text-muted-foreground">No journal entries yet.</p>
+	) : (
+		<ul class="flex flex-col gap-4">
+			{journal.map((entry) => (
+				<li>
+					<a
+						href={`/journal/${entry.id}/`}
+						class="group flex flex-col gap-2 rounded-md px-2 py-1 transition-colors hover:bg-muted"
+					>
+						<span class="font-medium group-hover:underline">
+							{entry.data.title}
+						</span>
+						{entry.data.description && (
+							<p class="text-sm text-muted-foreground">
+								{entry.data.description}
+							</p>
+						)}
+					</a>
+				</li>
+			))}
+		</ul>
+	)}
+</BaseLayout>

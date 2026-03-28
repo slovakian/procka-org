@@ -1,6 +1,6 @@
 {
 	"type": "module",
-	"name": "my-astro-app",
+	"name": "procka-org",
 	"version": "0.0.1",
 	"scripts": {
 		"astro": "astro",
@@ -16,7 +16,8 @@
 		"agents:sync": "bun run agents:sync-context && bun run agents:sync-skills"
 	},
 	"dependencies": {
-		"@astrojs/react": "^4.4.2",
+		"@astrojs/mdx": "^5.0.3",
+		"@astrojs/react": "^5.0.2",
 		"@base-ui/react": "^1.3.0",
 		"@fontsource-variable/geist-mono": "^5.2.7",
 		"@hugeicons/core-free-icons": "^4.0.0",
@@ -45,7 +46,6 @@
 		"@biomejs/biome": "2.4.9",
 		"@cloudflare/workers-types": "^4.20250805.0",
 		"@eslint/js": "^9.39.4",
-		"alchemy": "0.90.1",
 		"eslint": "^9.39.4",
 		"eslint-plugin-react-hooks": "^7.0.1",
 		"eslint-plugin-react-refresh": "^0.5.2",

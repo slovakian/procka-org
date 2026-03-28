@@ -25,4 +25,12 @@ const utils = defineCollection({
 	}),
 });
 
-export const collections = { blog, writing, utils };
+const journal = defineCollection({
+	loader: glob({ pattern: "**/*.md", base: "./src/content/journal" }),
+	schema: z.object({
+		title: z.string(),
+		description: z.string().optional(),
+	}),
+});
+
+export const collections = { blog, writing, utils, journal };
