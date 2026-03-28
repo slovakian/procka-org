@@ -1,5 +1,18 @@
 ---
+import { ProjectsList } from "@/components/ProjectsList";
 import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const projects = [
+	{
+		title: "Notai",
+		description: "A contemplative teachings web app.",
+	},
+	{
+		title: "Retro live chat",
+		description:
+			"Currently unnamed. Transient rooms that obey the laws of thermodynamics.",
+	},
+] as const;
 ---
 
 <BaseLayout
@@ -22,20 +35,6 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 		>
 			Projects
 		</h2>
-		<ul class="flex flex-col gap-6">
-			<li class="flex flex-col gap-2">
-				<span class="font-medium text-foreground">Notai</span>
-				<p class="text-muted-foreground leading-relaxed">
-					A contemplative teachings web app.
-				</p>
-			</li>
-			<li class="flex flex-col gap-2">
-				<span class="font-medium text-foreground">Retro live chat</span>
-				<p class="text-muted-foreground leading-relaxed">
-					Currently unnamed. Transient rooms that obey the laws of
-					thermodynamics.
-				</p>
-			</li>
-		</ul>
+		<ProjectsList items={[...projects]} />
 	</section>
 </BaseLayout>

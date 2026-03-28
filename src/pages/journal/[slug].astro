@@ -1,0 +1,48 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { getCollection, render } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+interface Props {
+	post: CollectionEntry<"journal">;
+}
+
+export async function getStaticPaths() {
+	const entries = await getCollection("journal");
+	return entries.map((post) => ({
+		params: { slug: post.id },
+		props: { post },
+	}));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<BaseLayout title={post.data.title} description={post.data.description}>
+	<article class="flex flex-col gap-8">
+		<header class="flex flex-col gap-3">
+			<p>
+				<a
+					href="/journal/"
+					class="text-sm text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
+				>
+					Journal
+				</a>
+			</p>
+			<h1
+				class="text-xl font-medium tracking-tight text-foreground md:text-2xl"
+			>
+				{post.data.title}
+			</h1>
+			<p class="text-muted-foreground leading-relaxed">
+				{post.data.description}
+			</p>
+		</header>
+		<div
+			class="space-y-4 text-muted-foreground leading-relaxed [&_a]:text-foreground [&_a]:underline [&_a]:underline-offset-4 [&_code]:rounded [&_code]:bg-muted [&_code]:px-1 [&_code]:py-0.5 [&_code]:text-sm [&_code]:text-foreground [&_h2]:mt-8 [&_h2]:text-sm [&_h2]:font-medium [&_h2]:text-foreground [&_h3]:mt-6 [&_h3]:text-sm [&_h3]:font-medium [&_h3]:text-foreground [&_li]:mt-1 [&_ol]:list-decimal [&_ol]:pl-5 [&_pre]:overflow-x-auto [&_pre]:rounded-lg [&_pre]:border [&_pre]:border-border [&_pre]:bg-muted/50 [&_pre]:p-4 [&_pre]:text-sm [&_strong]:text-foreground [&_ul]:list-disc [&_ul]:pl-5"
+		>
+			<Content />
+		</div>
+	</article>
+</BaseLayout>

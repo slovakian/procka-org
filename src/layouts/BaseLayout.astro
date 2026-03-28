@@ -1,4 +1,5 @@
 ---
+import { Font } from "astro:assets";
 import { ClientRouter } from "astro:transitions";
 import "../styles/global.css";
 
@@ -24,6 +25,7 @@ const path = Astro.url.pathname;
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		{description ? <meta name="description" content={description} /> : null}
+		<Font cssVariable="--font-mono" preload />
 		<ClientRouter />
 		<slot name="head" />
 	</head>

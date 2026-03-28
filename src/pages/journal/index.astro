@@ -1,12 +1,53 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import type { CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("journal")).sort(
+	(a: CollectionEntry<"journal">, b: CollectionEntry<"journal">) =>
+		a.id.localeCompare(b.id),
+);
 ---
 
 <BaseLayout
 	title="Journal"
 	description="A public journal where I share thoughts on anything."
 >
-	<p class="text-muted-foreground leading-relaxed">
-		A public journal where I share thoughts on anything.
-	</p>
+	<header class="flex flex-col gap-6">
+		<p class="text-muted-foreground leading-relaxed">
+			A public journal where I share thoughts on anything.
+		</p>
+	</header>
+
+	<section class="flex flex-col gap-4" aria-labelledby="entries-heading">
+		<h2
+			id="entries-heading"
+			class="text-sm font-medium tracking-tight text-foreground"
+		>
+			Entries
+		</h2>
+		{
+			posts.length === 0 ? (
+				<p class="text-muted-foreground leading-relaxed">
+					No entries yet.
+				</p>
+			) : (
+				<ul class="flex flex-col gap-6">
+					{posts.map((post: CollectionEntry<"journal">) => (
+						<li class="flex flex-col gap-2">
+							<a
+								href={`/journal/${post.id}/`}
+								class="font-medium text-foreground underline-offset-4 hover:underline"
+							>
+								{post.data.title}
+							</a>
+							<p class="text-muted-foreground leading-relaxed">
+								{post.data.description}
+							</p>
+						</li>
+					))}
+				</ul>
+			)
+		}
+	</section>
 </BaseLayout>
